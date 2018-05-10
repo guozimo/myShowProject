@@ -1,0 +1,103 @@
+<template>
+  <view class="animate-wrapper">
+    <view class="count-wrapper" animation="{{scaleData}}">
+      <view class="count" animation="{{oneSlideData}}" @transitionend="one-transitionend">6</view>
+      <view class="count" animation="{{twoSlideData}}" @transitionend="two-transitionend">6</view>
+      <view class="count" animation="{{threeSlideData}}" @transitionend="three-transitionend">6</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { throttle } from '@/utils'
+  export default class animate extends wepy.page {
+    config = {
+      navigationBarTitleText: '动画示例',
+      navigationBarBackgroundColor: '#303030',
+      navigationBarTextStyle: 'black'
+    }
+    components = {}
+    data = {
+      scaleData: {},
+      oneSlideData: {},
+      twoSlideData: {},
+      threeSlideData: {}
+    }
+    computed = {}
+    watch = {}
+    mixins = []
+    methods = {
+      'one-transitionend': throttle(this.twoSlideMove),
+      'two-transitionend': throttle(this.threeSlideMove),
+      'three-transitionend': throttle(this.scaleMove)
+    }
+    events = {}
+    onLoad() {
+      this.init()
+    }
+    onShow() {}
+    onUnload() {}
+    // ==========  自定义函数必须写在这个之后  =====================================
+    init() {
+      this.oneSlide = wepy.createAnimation()
+      this.twoSlide = wepy.createAnimation()
+      this.threeSlide = wepy.createAnimation()
+      this.scale = wepy.createAnimation()
+      this.oneSlideMove()
+    }
+    oneSlideMove() {
+      this.oneSlide.translateY(0).step()
+      this.oneSlideData = this.oneSlide.export()
+    }
+    twoSlideMove() {
+      this.twoSlide.translateY(0).step()
+      this.twoSlideData = this.twoSlide.export()
+    }
+    threeSlideMove() {
+      this.threeSlide.translateY(0).step()
+      this.threeSlideData = this.threeSlide.export()
+    }
+    scaleMove() {
+      this.scale
+        .scale(0.8).step()
+        .scale(1.2).step()
+        .scale(0.6).step()
+        .scale(1).step()
+        .skew(-50).step()
+        .skew(50).step()
+        .skew(0).step()
+      this.scaleData = this.scale.export()
+    }
+    // ==========  用户分享 =====================================================
+    onShareAppMessage() {
+      return {
+        title: '我发现了一个刷题利器, 这次考过就靠它了!',
+        imageUrl: `${this.imageUrl}/image/share_common.jpg`,
+        path: '/pages/homePage/homePage'
+      }
+    }
+  }
+</script>
+
+<style type='less'>
+  .animate-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background: #303030;
+    .count-wrapper {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      .count {
+        line-height: 200px;
+        font-size: 200px;
+        color: #fff;
+        transform: translateY(-400px);
+      }
+    }
+  }
+</style>

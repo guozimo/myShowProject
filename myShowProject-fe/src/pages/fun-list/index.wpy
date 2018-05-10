@@ -1,0 +1,75 @@
+<template>
+  <view class="fun-list-wrapper">
+    <view class="btn-group">
+      <view class="btn-item" @tap="handleGo({{'/pages/preload/preload'}})" hover-class="view-hover">预加载</view>
+      <view class="btn-item" @tap="handleGo({{'/pages/info/index'}})" hover-class="view-hover">获取用户信息</view>
+      <view class="btn-item" @tap="handleGo({{'/pages/animate/index'}})" hover-class="view-hover">动画示例</view>
+      <view class="btn-item" @tap="handleGo({{'/pages/share/index'}})" hover-class="view-hover">预加载</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { throttle } from '@/utils'
+  export default class FunList extends wepy.page {
+    config = {
+      navigationBarTitleText: '功能列表',
+      navigationBarBackgroundColor: '#AFD4C6',
+      navigationBarTextStyle: 'black'
+    }
+    components = {}
+    data = {}
+    computed = {}
+    watch = {}
+    mixins = []
+    methods = {
+      // 运用函数节流，防止因手机性能问题导致的用户狂点页面疯狂跳转的问题
+      handleGo: throttle(this.handleGo)
+    }
+    events = {}
+    onLoad() {
+      this.init()
+    }
+    onShow() {}
+    onUnload() {}
+    // ==========  自定义函数必须写在这个之后  =====================================
+    init() {}
+    handleGo(url) {
+      wepy.navigateTo({
+        url
+      })
+    }
+  }
+</script>
+
+<style type='less'>
+  .fun-list-wrapper {
+    width: 100%;
+    height: 100%;
+    background: #AFD4C6;
+    .btn-group {
+      height: auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding-top: 20rpx;
+      .btn-item {
+        width: 40%;
+        margin-bottom: 20rpx;
+        height: 100rpx;
+        line-height: 100rpx;
+        display: block;
+        background-color: #91bd09;
+        text-align: center;
+        border-radius: 10rpx;
+        color: white;
+        box-shadow: 0 0 10px #ccc;
+        &.view-hover {
+          transform: scale(0.8);
+          transition: all 1s;
+        }
+      }
+    }
+  }
+</style>

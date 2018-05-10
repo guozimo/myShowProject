@@ -1,0 +1,41 @@
+<template>
+  <view class="preload-wrapper">
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class PL extends wepy.page {
+    config = {
+      navigationBarTitleText: '预加载',
+      navigationBarBackgroundColor: '#AFD4C6',
+      navigationBarTextStyle: 'black'
+    }
+    components = {}
+    data = {
+    }
+    computed = {}
+    watch = {}
+    mixins = []
+    methods = {}
+    events = {}
+    onLoad() {
+      this.init()
+    }
+    onShow () {}
+    onUnload() {}
+    // ==========  自定义函数必须写在这个之后  =====================================
+    init() {
+
+    }
+  }
+</script>
+
+<style type='less'>
+  .preload-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+</style>
